@@ -4,21 +4,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Validation Form</title>
     <script src="index.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Validation Form</title>
 </head>
 <body>
     <div>
         <form novalidate id="form">
             <div>
-                <h2>Your Email</h2>
+                <h2>Your Email *</h2>
                 <input type="email" name="email" id="email" required placeholder="example@hotmail.com">
-                <span id="error"></span>
+                <span id="email-error"></span>
             </div>
 
             <div>
-                <h2>Country and Zip-Code</h2>
-                <select name="countries" id="contries" required>
+                <h2>Country and Zip-Code *</h2>
+                <select name="countries">
                     <option value="Afghanistan">Afghanistan</option>
                     <option value="Albania">Albania</option>
                     <option value="Algeria">Algeria</option>
@@ -260,15 +261,22 @@
                     <option value="Zimbabwe">Zimbabwe</option>
                 </select>
                 <input type="number" name="zip-code" id="zip-code" required placeholder="Zip code">
+                <span id="zip-error"></span>
             </div>
 
             <div>
-                <h2>Password</h2>
+                <h2>Password *</h2>
                 <input type="password" name="password" id="password" required minlength="8" placeholder="Password">
                 <input type="password" name="confirm-pass" id="confirm-pass" required minlength="8" placeholder="Confirm Password">
+                <div>
+                    <h3 id="one-num">𐄂 At least one number</h3>
+                    <h3 id="up-case">𐄂 At least one upper case</h3>
+                    <h3 id="min-char">𐄂 Minimum 8 characters</h3>
+                    <h3 id="no-match">𐄂 Password doesn't match</h3>
+                </div>
             </div>
             
-            <button type="submit">Submit</button>
+            <button type="submit" id="submit">Submit</button>
         </form>
     </div>
 </body>
