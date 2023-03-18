@@ -1,5 +1,7 @@
 const form = document.getElementById('form');
-const submitBtn = document.getElementById('submit');
+const submitBtn = document.getElementById('submit-btn');
+const passEvent = document.getElementById('pass-event');
+
 
 function emailValidity() {
     const email = document.getElementById('email');
@@ -8,19 +10,22 @@ function emailValidity() {
     let valid;
     
     if(email.validity.valueMissing) {
-        emailError.textContent = 'Missing field'
-        email.style.border = '3px solid red';
-        email.style.background = 'pink'
+        emailError.textContent = '𐄂 Missing field';
+        emailError.style.color = 'salmon'
+        email.classList.remove('valid');
+        email.classList.add('invalid');
         valid = false;
     } else if(!email.validity.valid){
-        emailError.textContent = 'Enter a valid email'
-        email.style.border = '3px solid red';
-        email.style.background = 'pink'
+        emailError.textContent = '𐄂 Enter a valid email';
+        emailError.style.color = 'salmon'
+        email.classList.remove('valid');
+        email.classList.add('invalid');
         valid = false;
     } else if(email.validity.valid) {
-        emailError.textContent = 'V'
-        email.style.border = '3px solid lime';
-        email.style.background = 'lightgreen'
+        emailError.textContent = '✓';
+        emailError.style.color = 'lime'
+        email.classList.remove('invalid');
+        email.classList.add('valid');
         valid = true;
     }
     
@@ -36,46 +41,55 @@ function passValidity() {
     const noMatch = document.getElementById('no-match');
 
     let valid;
-
+    
     if(password.value.match(/[0-9]/)){
         oneNum.textContent = '✓ At least one number';
+        oneNum.style.color = 'lime';
     } else {
         oneNum.textContent = '𐄂 At least one number';
+        oneNum.style.color = 'salmon';
     }
 
     if(password.value.match(/[A-Z]/)) {
         upCase.textContent = '✓ At least one upper case';
+        upCase.style.color = 'lime';
     } else {
         upCase.textContent = '𐄂 At least one upper case';
+        upCase.style.color = 'salmon';
     }
 
     if(password.value.length > 8) {
         minChars.textContent = '✓ Minimum 8 characters';
+        minChars.style.color = 'lime';
     } else {
         minChars.textContent = '𐄂 Minimum 8 characters';
+        minChars.style.color = 'salmon';
     }
 
-    if(confirmPass.value !== password.value) {
+    if(confirmPass.value !== password.value || password.value == '' || confirmPass.value == '') {
         noMatch.textContent = '𐄂 Password doesn\'t match';
+        noMatch.style.color = 'salmon';
         valid = false;
     } else {
         noMatch.textContent = '✓ Password matches';
+        noMatch.style.color = 'lime';
         valid = true;
     }
 
     return valid;
 }
 
-form.addEventListener('input', () => {
-    
+form.addEventListener('input' , () => {
+
     emailValidity();
     passValidity();
 })
 
 form.addEventListener('submit', (e) => {
-    if(!passValidity() || !emailValidity()) {
-        e.preventDefault()
+    
+    if(passValidity() && emailValidity()) {
+        form.submit();
     } else {
-        form.submit()
+        e.preventDefault()
     }
 })
